@@ -11,3 +11,4 @@ class CartItem extends Model
 
     protected $fillable = ['product_variant_id', 'quantity', 'price'];
 }
+
