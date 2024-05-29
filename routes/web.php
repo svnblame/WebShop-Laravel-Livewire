@@ -1,5 +1,6 @@
 <?php
 
+use App\Livewire\Cart;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', \App\Livewire\StoreFront::class)
@@ -7,6 +8,9 @@ Route::get('/', \App\Livewire\StoreFront::class)
 
 Route::get('/product/{productId}', \App\Livewire\Product::class)
     ->name('product');
+
+Route::get('/cart', Cart ::class)
+    ->name('cart');
 
 //Route::middleware([
 //    'auth:sanctum',
