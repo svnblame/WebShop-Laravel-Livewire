@@ -11,7 +11,10 @@ use Livewire\Component;
 
 class NavigationCart extends Component
 {
-    public $listeners = ['productAddedToCart' => '$refresh'];
+    public $listeners = [
+        'productAddedToCart' => '$refresh',
+        'productRemovedFromCart' => '$refresh',
+    ];
 
     public function render(): Factory|Application|View|ViewAlias|\Illuminate\Contracts\Foundation\Application
     {
