@@ -12,6 +12,18 @@ class Cart extends Component
         return CartFactory::make()->items;
     }
 
+    public function increment($itemId): void
+    {
+        CartFactory::make()->items()->find($itemId)?->increment('quantity');
+    }
+
+    public function decrement($itemId): void
+    {
+        $item = CartFactory::make()->items()->find($itemId);
+
+        if ($item->quantity > 1) $item->decrement('quantity');
+    }
+
     public function delete($itemId): void
     {
         CartFactory::make()->items()->where('id', $itemId)->delete();
