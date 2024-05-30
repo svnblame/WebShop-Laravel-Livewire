@@ -3,8 +3,10 @@
 use App\Livewire\Cart;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', \App\Livewire\StoreFront::class)
-    ->name('home');
+Route::get('/', function () { return redirect(route('dashboard')); });
+
+Route::get('/dashboard', \App\Livewire\StoreFront::class)
+    ->name('dashboard');
 
 Route::get('/product/{productId}', \App\Livewire\Product::class)
     ->name('product');
