@@ -4,11 +4,14 @@ namespace App\Providers;
 
 use App\Actions\Webshop\MigrateSessionCart;
 use App\Factories\CartFactory;
+use App\Listeners\StripeEventListener;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Blade;
+use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\ServiceProvider;
+use Laravel\Cashier\Events\WebhookReceived;
 use Laravel\Fortify\Fortify;
 use Money\Currencies\ISOCurrencies;
 use Money\Formatter\IntlMoneyFormatter;
@@ -57,5 +60,10 @@ class AppServiceProvider extends ServiceProvider
         RedirectIfAuthenticated::redirectUsing(function () {
             return route('home');
         });
+
+        // Manually register events
+        Event::listen(
+            WebhookReceived::class,
+        );
     }
 }
