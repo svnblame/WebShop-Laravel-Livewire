@@ -13,8 +13,16 @@ class CreateStripeCheckoutSession
         return $cart->user
             ->allowPromotionCodes()
             ->checkout(
-            $this->formatCartItems($cart->items)
-        );
+                $this->formatCartItems($cart->items),
+                [
+                    'customer_update' => [
+                        'shipping' => 'auto',
+                    ],
+                    'shipping_address_collection' => [
+                        'allowed_countries' => ['US']
+                    ]
+                ]
+            );
     }
 
     private function formatCartItems(Collection $cartItems): array
@@ -22,13 +30,13 @@ class CreateStripeCheckoutSession
         return $cartItems->loadMissing('product', 'variant')->map(function (CartItem $cartItem) {
             return [
                 'price_data' => [
-                    'currency' => 'USD',
-                    'unit_amount' => $cartItem->product->price->getAmount(),
+                    'currency' =>  'USD',
+                    'unit_amount'  => $cartItem->product->price->getAmount(),
                     'product_data' => [
-                        'name' => $cartItem->product->name,
+                        'name'        => $cartItem->product->name,
                         'description' => "Size: {$cartItem->variant->size} - Color: {$cartItem->variant->color}",
-                        'metadata' => [
-                            'product_id' => $cartItem->product->id,
+                        'metadata'    => [
+                            'product_id'         => $cartItem->product->id,
                             'product_variant_id' => $cartItem->product_variant_id,
                         ]
                     ]
