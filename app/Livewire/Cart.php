@@ -2,8 +2,14 @@
 
 namespace App\Livewire;
 
+use App\Actions\Webshop\CreateStripeCheckoutSession;
 use App\Factories\CartFactory;
+use Illuminate\Contracts\Foundation\Application as ApplicationContract;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Foundation\Application;
+use Illuminate\View\View as CartView;
 use Livewire\Component;
 
 class Cart extends Component
@@ -37,8 +43,13 @@ class Cart extends Component
         $this->dispatch('productRemovedFromCart');
     }
 
-    public function render()
+    public function render(): Factory|Application|View|CartView|ApplicationContract
     {
         return view('livewire.cart');
+    }
+
+    public function checkout(CreateStripeCheckoutSession $checkoutSession)
+    {
+        return $checkoutSession->createFromCart($this->cart);
     }
 }
