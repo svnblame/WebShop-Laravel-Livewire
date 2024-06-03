@@ -3,10 +3,10 @@
 use App\Livewire\Cart;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () { return redirect(route('dashboard')); });
+Route::get('/', function () { return redirect(route('home')); });
 
-Route::get('/dashboard', \App\Livewire\StoreFront::class)
-    ->name('dashboard');
+Route::get('/home', \App\Livewire\StoreFront::class)
+    ->name('home');
 
 Route::get('/product/{productId}', \App\Livewire\Product::class)
     ->name('product');
@@ -19,7 +19,7 @@ Route::get('/cart', Cart ::class)
 //    config('jetstream.auth_session'),
 //    'verified',
 //])->group(function () {
-//    Route::get('/dashboard', function () {
-//        return view('dashboard');
-//    })->name('dashboard');
+//    Route::get('/home', function () {
+//        return view('home');
+//    })->name('home');
 //});
