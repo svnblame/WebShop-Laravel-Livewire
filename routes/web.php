@@ -1,6 +1,7 @@
 <?php
 
 use App\Livewire\Cart;
+use App\Livewire\CheckoutStatus;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () { return redirect(route('home')); });
@@ -13,6 +14,9 @@ Route::get('/product/{productId}', \App\Livewire\Product::class)
 
 Route::get('/cart', Cart ::class)
     ->name('cart');
+
+Route::get('/checkout-status', CheckoutStatus::class)
+    ->name('checkout-status');
 
 //Route::middleware([
 //    'auth:sanctum',
