@@ -60,10 +60,5 @@ class AppServiceProvider extends ServiceProvider
         RedirectIfAuthenticated::redirectUsing(function () {
             return route('home');
         });
-
-        // Manually register events
-        Event::listen(
-            WebhookReceived::class,
-        );
     }
 }
