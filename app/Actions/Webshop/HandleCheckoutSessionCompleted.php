@@ -67,7 +67,7 @@ class HandleCheckoutSessionCompleted
 
             $order->items()->saveMany($orderItems);
 
-            $cart->items->delete();
+            $cart->items()->delete();
             $cart->delete();
         });
     }
