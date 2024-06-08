@@ -2,6 +2,7 @@
 
 use App\Livewire\Cart;
 use App\Livewire\CheckoutStatus;
+use App\Livewire\ViewOrder;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () { return redirect(route('home')); });
@@ -15,21 +16,14 @@ Route::get('/product/{productId}', \App\Livewire\Product::class)
 Route::get('/cart', Cart ::class)
     ->name('cart');
 
-Route::get('/checkout-status', CheckoutStatus::class)
-    ->name('checkout-status');
+Route::middleware([
+    'auth:sanctum',
+    config('jetstream.auth_session'),
+    'verified',
+])->group(function () {
+    Route::get('/checkout-status', CheckoutStatus::class)
+        ->name('checkout-status');
 
-Route::get('/preview', function() {
-    $order = \App\Models\Order::first();
-
-    return new \App\Mail\OrderConfirmation($order);
+    Route::get('/order/{orderId}', ViewOrder::class)
+        ->name('view-order');
 });
-
-//Route::middleware([
-//    'auth:sanctum',
-//    config('jetstream.auth_session'),
-//    'verified',
-//])->group(function () {
-//    Route::get('/home', function () {
-//        return view('home');
-//    })->name('home');
-//});
