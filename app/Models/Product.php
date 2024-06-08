@@ -2,18 +2,18 @@
 
 namespace App\Models;
 
+use App\Casts\MoneyCast;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
-use Money\Money;
 
 class Product extends Model
 {
     use HasFactory;
 
     public $casts = [
-        'price' => Money::class,
+        'price' => MoneyCast::class,
     ];
 
     public function variants(): HasMany
