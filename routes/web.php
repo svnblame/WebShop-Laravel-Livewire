@@ -2,6 +2,7 @@
 
 use App\Livewire\Cart;
 use App\Livewire\CheckoutStatus;
+use App\Livewire\MyOrders;
 use App\Livewire\ViewOrder;
 use Illuminate\Support\Facades\Route;
 
@@ -26,4 +27,7 @@ Route::middleware([
 
     Route::get('/order/{orderId}', ViewOrder::class)
         ->name('view-order');
+
+    Route::get('/my-orders', MyOrders::class)
+        ->name('my-orders');
 });
