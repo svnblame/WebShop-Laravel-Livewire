@@ -10,14 +10,6 @@ class OrderItem extends Model
 {
     use HasFactory;
 
-    public $casts = [
-        'price' => MoneyCast::class,
-        'amount_discount' => MoneyCast::class,
-        'amount_tax' => MoneyCast::class,
-        'amount_subtotal' => MoneyCast::class,
-        'amount_total' => MoneyCast::class,
-    ];
-
     public $fillable = [
         'product_variant_id',
         'name',
@@ -29,4 +21,15 @@ class OrderItem extends Model
         'amount_tax',
         'amount_total',
     ];
+
+    protected function casts(): array
+    {
+        return [
+            'price' => MoneyCast::class,
+            'amount_discount' => MoneyCast::class,
+            'amount_tax' => MoneyCast::class,
+            'amount_subtotal' => MoneyCast::class,
+            'amount_total' => MoneyCast::class,
+        ];
+    }
 }
