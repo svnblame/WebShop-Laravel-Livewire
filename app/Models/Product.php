@@ -12,9 +12,12 @@ class Product extends Model
 {
     use HasFactory;
 
-    public $casts = [
-        'price' => MoneyCast::class,
-    ];
+    protected function casts(): array
+    {
+        return [
+            'price' => MoneyCast::class,
+        ];
+    }
 
     public function variants(): HasMany
     {
