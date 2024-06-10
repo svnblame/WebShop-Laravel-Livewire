@@ -10,16 +10,19 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Foundation\Application;
 use Illuminate\View\View as CartView;
+use Livewire\Attributes\Computed;
 use Livewire\Component;
 
 class Cart extends Component
 {
-    public function getCartProperty(): Collection|\App\Models\Cart|array
+    #[Computed]
+    public function cart(): Collection|\App\Models\Cart|array
     {
         return CartFactory::make()->loadMissing(['items', 'items.product', 'items.variant']);
     }
 
-    public function getItemsProperty()
+    #[Computed]
+    public function items()
     {
         return $this->cart->items;
     }
