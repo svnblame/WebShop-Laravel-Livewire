@@ -31,3 +31,10 @@ Route::middleware([
     Route::get('/my-orders', MyOrders::class)
         ->name('my-orders');
 });
+
+
+Route::get('/preview', function() {
+    $cart = \App\Models\User::first()->cart;
+
+    return new \App\Mail\AbandonedCartReminder($cart);
+});

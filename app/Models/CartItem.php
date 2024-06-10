@@ -13,6 +13,7 @@ class  CartItem extends Model
     use HasFactory;
 
     protected $fillable = ['product_variant_id', 'quantity', 'price'];
+    protected $touches = ['cart'];
 
     protected function subtotal(): Attribute
     {
@@ -29,6 +30,11 @@ class  CartItem extends Model
             ProductVariant::class,
             'product_variant_id'
         );
+    }
+
+    public function cart(): BelongsTo
+    {
+        return $this->belongsTo(Cart::class);
     }
 
     public function product(): HasOneThrough

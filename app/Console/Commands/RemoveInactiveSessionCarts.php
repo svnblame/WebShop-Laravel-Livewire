@@ -2,36 +2,35 @@
 
 namespace App\Console\Commands;
 
-use App\Mail\AbandonedCartReminder;
 use App\Models\Cart;
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\Mail;
 
-class AbandonedCart extends Command
+class RemoveInactiveSessionCarts extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'app:abandoned-cart';
+    protected $signature = 'app:remove-inactive-session-carts';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Look for abandoned carts and notify their owner.';
+    protected $description = 'Remove inactive session based carts';
 
     /**
      * Execute the console command.
      */
     public function handle()
     {
-        $carts = Cart::withWhereHas('user')->whereDate('updated_at', today()->subDay())->get();
+        $carts = Cart::whereDoesntHave('user')->whereDate('created_at', '<', now()->subDay(1))->get();
 
         foreach ($carts as $cart) {
-            Mail::to($cart->user)->send(new AbandonedCartReminder($cart));
+            $cart->items()->delete();
+            $cart->delete();
         }
     }
 }
