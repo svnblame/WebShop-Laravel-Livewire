@@ -12,16 +12,6 @@ class Order extends Model
 {
     use HasFactory;
 
-    public $casts = [
-        'billing_address'  => 'collection',
-        'shipping_address' => 'collection',
-        'amount_shipping'  => MoneyCast::class,
-        'amount_discount'  => MoneyCast::class,
-        'amount_tax'       => MoneyCast::class,
-        'amount_subtotal'  => MoneyCast::class,
-        'amount_total'     => MoneyCast::class,
-    ];
-
     public $fillable = [
         'stripe_checkout_session_id',
         'amount_shipping',
@@ -32,6 +22,19 @@ class Order extends Model
         'billing_address',
         'shipping_address',
     ];
+
+    protected function casts(): array
+    {
+        return [
+            'billing_address'  => 'collection',
+            'shipping_address' => 'collection',
+            'amount_shipping'  => MoneyCast::class,
+            'amount_discount'  => MoneyCast::class,
+            'amount_tax'       => MoneyCast::class,
+            'amount_subtotal'  => MoneyCast::class,
+            'amount_total'     => MoneyCast::class,
+        ];
+    }
 
     public function items(): HasMany
     {
